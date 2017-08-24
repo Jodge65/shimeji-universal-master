@@ -5,6 +5,7 @@ import com.jodge.shimeji.file.FileHelper;
 
 import javax.swing.*;
 
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
@@ -36,6 +37,7 @@ public class ImageSetChooser extends javax.swing.JDialog
 	private javax.swing.JLabel slashLabel;
 	private javax.swing.JButton useAllButton;
 	private javax.swing.JButton useSelectedButton;
+    private javax.swing.JCheckBox autoStart;
 
 	public ImageSetChooser(java.awt.Frame parent, boolean modal)
 	{
@@ -189,7 +191,8 @@ public class ImageSetChooser extends javax.swing.JDialog
 		clearAllLabel = new javax.swing.JLabel();
 		slashLabel = new javax.swing.JLabel();
 		selectAllLabel = new javax.swing.JLabel();
-
+		autoStart = new javax.swing.JCheckBox();
+		
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle("Shimeji-ee Image Set Chooser");
 		setMinimumSize(new java.awt.Dimension(670, 495));
@@ -245,6 +248,19 @@ public class ImageSetChooser extends javax.swing.JDialog
 		});
 		jPanel1.add(cancelButton);
 
+		autoStart.setOpaque(false);
+		autoStart.setText("AutoStart");
+		autoStart.setToolTipText("If check, then this windows will not prompt next start.");
+		autoStart.setSelected(Boolean.parseBoolean(Main.getInstance().getProperties().getProperty("AutoStart", "false")));
+		autoStart.addActionListener(new java.awt.event.ActionListener()
+		{
+			public void actionPerformed(java.awt.event.ActionEvent evt)
+			{
+				checkAutoStartOption(evt);
+			}
+		});
+		jPanel1.add(autoStart);
+		
 		jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
 
 		clearAllLabel.setForeground(new java.awt.Color(0, 0, 204));
@@ -318,7 +334,27 @@ public class ImageSetChooser extends javax.swing.JDialog
 		closeProgram = false;
 		this.dispose();
 	}
-
+	
+	private void checkAutoStartOption(ActionEvent evt) 
+	{
+		try
+		{
+			FileOutputStream output = new FileOutputStream(configFile);
+			try
+			{
+				Main.getInstance().getProperties().setProperty("AutoStart", (autoStart.isSelected())?"true":"false");
+			}
+			finally
+			{
+				output.close();
+			}
+		}
+		catch (Exception e)
+		{
+			// Doesn't matter at all
+		}
+	}
+	
 	private void useAllButtonActionPerformed(java.awt.event.ActionEvent evt)
 	{
 		closeProgram = false;

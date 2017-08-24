@@ -18,7 +18,6 @@ public class ImageSetChooserPanel extends javax.swing.JPanel {
     private javax.swing.JLabel image;
     private javax.swing.JLabel name;
 
-
     public ImageSetChooserPanel() {
         initComponents();
     }

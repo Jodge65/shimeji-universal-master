@@ -20,9 +20,9 @@ public class FileHelper
 	public static String getActionFile(String imageSet, boolean ignoreTrad)
 	{
 		Map<String, String> alternativeFile = new HashMap<String, String>();
-		alternativeFile.put(Langue.EN.toString(), "action.xml");
+		alternativeFile.put(Langue.EN.toString(), "actions.xml");
 		alternativeFile.put(Langue.JAP.toString(), "動作.xml");
-		return getFile("action.xml", imageSet, alternativeFile, ignoreTrad);
+		return getFile("actions.xml", imageSet, alternativeFile, ignoreTrad);
 	}
 
 	public static String getBehaviorFile(String imageSet)
@@ -57,6 +57,7 @@ public class FileHelper
 		{
 			for(Entry<String, String> entry : alternativeFile.entrySet())
 			{
+				
 				if (new File("./" + imgFolder + "/" + imageSet + "/" + confFolder  + "/" + entry.getKey() + "_" + fileName).exists()) // jap_action.xml
 				{
 					if(ignoreTrad)
@@ -69,8 +70,12 @@ public class FileHelper
 					}
 					break;
 				}
-				else if (new File("./" + imgFolder + "/" + imageSet + "/" + confFolder  + "/" + entry.getValue()).exists()) // 動作.xml
+				else if (new File("./" + imgFolder + "/" + imageSet + "/" + confFolder  + "/" + entry.getValue()).exists())
 				{
+					ShimejiConvert.convert(	"./" + imgFolder + "/" + imageSet + "/" + confFolder  + "/" + entry.getValue(), 
+											"./" + imgFolder + "/" + imageSet + "/" + confFolder  + "/" + entry.getKey() + "_" + fileName,
+											entry.getKey(), 
+											Langue.EN.toString());
 					if(ignoreTrad)
 					{
 						resultFile = "./" + imgFolder + "/" + imageSet + "/" + confFolder  + "/" + entry.getValue();
@@ -78,15 +83,12 @@ public class FileHelper
 					else
 					{
 						resultFile = "./" + imgFolder + "/" + imageSet + "/" + confFolder  + "/" + entry.getKey() + "_" + fileName;
-						ShimejiConvert.convert(	"./" + imgFolder + "/" + imageSet + "/" + confFolder  + "/" + entry.getValue(), 
-												resultFile,
-												entry.getKey(), 
-												Langue.EN.toString());
 					}
 					break;
 				}
 			}
 		}
+
 		return resultFile;
 	}
 }

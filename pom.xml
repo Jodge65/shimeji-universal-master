@@ -6,9 +6,8 @@
     <name>Shimeji-ee</name>
     <groupId>com.group_finity</groupId>
     <artifactId>shimeji-ee</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.10</version>
     <description>Allows tiny characters to run amok on your computer (English Version)</description>
-    <url>https://github.com/SonarBeserk/shimeji-universal</url>
     <packaging>jar</packaging>
 
     <properties>
@@ -110,4 +109,5 @@
             </plugin>
         </plugins>
     </build>
+    <url>https://github.com/Jodge65/shimeji-universal-master</url>
 </project>

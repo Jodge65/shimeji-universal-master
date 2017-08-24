@@ -131,7 +131,7 @@ public class Main
 		// Get the image sets to use
 		imageSets.addAll(Arrays.asList(properties.getProperty("ActiveShimeji", "").split("/")));
 		// TODO set this mandatory
-		boolean autoStart = Boolean.parseBoolean(properties.getProperty("autoStart", "false"));
+		boolean autoStart = Boolean.parseBoolean(properties.getProperty("AutoStart", "false"));
 		
 		if (imageSets.get(0).trim().isEmpty() || !autoStart)
 		{
