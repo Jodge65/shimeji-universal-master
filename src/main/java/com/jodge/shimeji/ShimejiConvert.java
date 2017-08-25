@@ -2,10 +2,13 @@ package com.jodge.shimeji;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 import java.util.List;
 
@@ -28,40 +31,43 @@ public class ShimejiConvert
 		File in= new File(fileIn);
 		File out= new File(fileOut);
 		
-		if(!out.exists())
+		if(out.exists())
 		{
-			try
-			{
-				out.createNewFile();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			out.delete();
 		}
 		
-		//file reading
-		FileReader reader = null;
 		try
 		{
-			reader = new FileReader(in);
+			out.createNewFile();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+		//file reading
+		InputStreamReader reader = null;
+		try
+		{
+			reader = new InputStreamReader(new FileInputStream(in), StandardCharsets.UTF_8);
 		}
 		catch (FileNotFoundException e1)
 		{
 			e1.printStackTrace();
 		}
 		
-		FileWriter writer = null;
+		OutputStreamWriter writer = null;
 		try
 		{
-			writer = new FileWriter(out);
+			writer = new OutputStreamWriter(new FileOutputStream(out), StandardCharsets.UTF_8);
 		}
 		catch (IOException e1)
 		{
 			e1.printStackTrace();
 		}
 		
-		String line;
+		String line = "";
 		try 
 		{
 			Translator dico = Translator.getInstance();
@@ -72,14 +78,15 @@ public class ShimejiConvert
 			BufferedReader bufIn = new BufferedReader(reader);
 			while ((line = bufIn.readLine()) != null) 
 			{
+				line = Normalizer.normalize(line, Normalizer.Form.NFKC);
 				for(int i = 0; i < nbWords; i++)
 				{
-					line = Normalizer.normalize(line, Normalizer.Form.NFKC);
 					line = line.replace(dicoIn.get(i), dicoOut.get(i));
 				}
 				writer.write(line + "\n");
 			} // end of while
 			writer.close();
+			reader.close();
 		}
 		catch(Exception e){
 		    e.printStackTrace();
