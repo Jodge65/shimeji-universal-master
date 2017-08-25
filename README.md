@@ -4,8 +4,8 @@ An universal version of [shimeji-ee](https://code.google.com/p/shimeji-ee/) upda
 shimeji-universal is based on [TigerHix's fork](https://github.com/TigerHix/shimeji-universal) (64bit support) based on [Kilkakon's fork](http://kilkakon.com/projects/shimeji.php) (original project).
 Eevee belong to [stormgale](https://stormgale.deviantart.com/art/Eevee-Shimeji-9-9-updated-download-no-clone-181940841) If you like them, support the author 
 
-### Why you made this?
-I found a bunch of cute shimeji, but i don't want to have 3 or 4 applications launch on same time. Enjoye this truly universal version ! :)
+### Download
+ > [Shimeji-ee_1.0.10-release1](http://www.mediafire.com/file/6z6dum6ebicrlp2/Shimeji-ee_1.0.10-release1.zip)
 
 ### How to add existing shimeji
  - Move into folder ./img
